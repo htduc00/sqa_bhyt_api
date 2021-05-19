@@ -34,15 +34,11 @@ public class Group implements Serializable {
     private int id;
     @Column(length=255)
     private String name;
-    
-    @JsonIgnore
-    @OneToOne(mappedBy="group")
-    private Payment payment;
-    
+            
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy="group")
-    private Set<User> user;
-
+    private Set<GroupDetail> groupDetail;
+    
     /** Default constructor. */
     public Group() {
         super();
@@ -84,43 +80,15 @@ public class Group implements Serializable {
         name = aName;
     }
 
-    /**
-     * Access method for payment.
-     *
-     * @return the current value of payment
-     */
-    public Payment getPayment() {
-        return payment;
-    }
+    public Set<GroupDetail> getGroupDetail() {
+		return groupDetail;
+	}
 
-    /**
-     * Setter method for payment.
-     *
-     * @param aPayment the new value for payment
-     */
-    public void setPayment(Payment aPayment) {
-        payment = aPayment;
-    }
+	public void setGroupDetail(Set<GroupDetail> groupDetail) {
+		this.groupDetail = groupDetail;
+	}
 
-    /**
-     * Access method for user.
-     *
-     * @return the current value of user
-     */
-    public Set<User> getUser() {
-        return user;
-    }
-
-    /**
-     * Setter method for user.
-     *
-     * @param aUser the new value for user
-     */
-    public void setUser(Set<User> aUser) {
-        user = aUser;
-    }
-
-    /**
+	/**
      * Compares the key for this instance with another Group.
      *
      * @param other The object to compare to

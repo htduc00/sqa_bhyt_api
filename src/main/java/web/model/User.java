@@ -6,12 +6,15 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
@@ -40,8 +43,18 @@ public class User implements Serializable {
     private String sex;
     @Column(length=255)
     private String address;
+    @Column()
+    private int income;
     
-    @JsonIgnore
+    public int getIncome() {
+		return income;
+	}
+
+	public void setIncome(int income) {
+		this.income = income;
+	}
+
+	@JsonIgnore
     @OneToOne(mappedBy="user")
     private Account account;
     
@@ -50,8 +63,8 @@ public class User implements Serializable {
     private Quan quan;
     
     @ManyToOne()
-    @JoinColumn(name="group_id", nullable=false)
-    private Group group;
+    @JoinColumn(name="group_detail_id", nullable=false)
+    private GroupDetail groupDetail;
     
     @ManyToOne()
     @JoinColumn(name="phuong_id", nullable=false)
@@ -64,13 +77,26 @@ public class User implements Serializable {
     @OneToOne()
     @JoinColumn(name="bhyt_code", nullable=false)
     private Bhyt bhyt;
+    
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
+    private Set<Bill> bill;
 
     /** Default constructor. */
     public User() {
         super();
     }
+    
+    
+    public Set<Bill> getBill() {
+		return bill;
+	}
 
-    /**
+	public void setBill(Set<Bill> bill) {
+		this.bill = bill;
+	}
+
+	/**
      * Access method for cccd.
      *
      * @return the current value of cccd
@@ -237,18 +263,6 @@ public class User implements Serializable {
      *
      * @return the current value of group
      */
-    public Group getGroup() {
-        return group;
-    }
-
-    /**
-     * Setter method for group.
-     *
-     * @param aGroup the new value for group
-     */
-    public void setGroup(Group aGroup) {
-        group = aGroup;
-    }
 
     /**
      * Access method for phuong.
@@ -259,7 +273,15 @@ public class User implements Serializable {
         return phuong;
     }
 
-    /**
+    public GroupDetail getGroupDetail() {
+		return groupDetail;
+	}
+
+	public void setGroupDetail(GroupDetail groupDetail) {
+		this.groupDetail = groupDetail;
+	}
+
+	/**
      * Setter method for phuong.
      *
      * @param aPhuong the new value for phuong

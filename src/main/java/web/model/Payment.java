@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="payment")
 public class Payment implements Serializable {
@@ -29,16 +30,27 @@ public class Payment implements Serializable {
     private int id;
     @Column(nullable=false, precision=12)
     private float cost;
+    @Column(name="family_cost", length=255)
+    private String familyCost;
     
-    @OneToOne()
-    @JoinColumn(name="group_id", nullable=false)
-    private Group group;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="group_detail_id", nullable=false)
+    private GroupDetail groupDetail;
 
-    /** Default constructor. */
+    public String getFamilyCost() {
+		return familyCost;
+	}
+
+	public void setFamilyCost(String familyCost) {
+		this.familyCost = familyCost;
+	}
+
+	/** Default constructor. */
     public Payment() {
         super();
     }
-
+    
     /**
      * Access method for id.
      *
@@ -75,25 +87,17 @@ public class Payment implements Serializable {
         cost = aCost;
     }
 
-    /**
-     * Access method for group.
-     *
-     * @return the current value of group
-     */
-    public Group getGroup() {
-        return group;
-    }
 
-    /**
-     * Setter method for group.
-     *
-     * @param aGroup the new value for group
-     */
-    public void setGroup(Group aGroup) {
-        group = aGroup;
-    }
+    	
+    public GroupDetail getGroupDetail() {
+		return groupDetail;
+	}
 
-    /**
+	public void setGroupDetail(GroupDetail groupDetail) {
+		this.groupDetail = groupDetail;
+	}
+
+	/**
      * Compares the key for this instance with another Payment.
      *
      * @param other The object to compare to

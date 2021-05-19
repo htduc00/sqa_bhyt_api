@@ -30,21 +30,33 @@ public class Bhyt implements Serializable {
     private Date date;
     @Column(name="join_date")
     private Date joinDate;
-    
-    @ManyToOne()
+      
+    @ManyToOne
     @JoinColumn(name="hospital_id", nullable=false)
     private Hospital hospital;
     
     @JsonIgnore
     @OneToOne(mappedBy="bhyt")
     private User user;
+    
+    @ManyToOne
+    @JoinColumn(name="family_id", nullable=true)
+    private Family family;
 
     /** Default constructor. */
     public Bhyt() {
         super();
     }
 
-    /**
+    public Family getFamily() {
+		return family;
+	}
+
+	public void setFamily(Family family) {
+		this.family = family;
+	}
+
+	/**
      * Access method for code.
      *
      * @return the current value of code
@@ -71,7 +83,7 @@ public class Bhyt implements Serializable {
         return date;
     }
 
-    /**
+	/**
      * Setter method for date.
      *
      * @param aDate the new value for date
