@@ -23,6 +23,23 @@ public class Salary implements Serializable{
     @Column
     private int value;
 
+    
+	public Salary() {
+		super();
+	}
+
+	public Salary(int value) {
+		super();
+		this.value = value;
+	}
+
+	public Salary(int id, String des, int value) {
+		super();
+		this.id = id;
+		this.des = des;
+		this.value = value;
+	}
+
 	public int getId() {
 		return id;
 	}

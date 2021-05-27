@@ -51,7 +51,14 @@ public class Payment implements Serializable {
         super();
     }
     
-    /**
+
+	public Payment(float cost, String familyCost) {
+		super();
+		this.cost = cost;
+		this.familyCost = familyCost;
+	}
+
+	/**
      * Access method for id.
      *
      * @return the current value of id

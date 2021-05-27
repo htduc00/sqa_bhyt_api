@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.sql.Date;
+import java.text.Collator;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,9 +39,6 @@ public class ReportController {
 	private UserRepo userRepo;
 	
 	@Autowired
-	private SalaryRepo salaryRepo;
-	
-	@Autowired
 	private BillRepo billRepo;
 	
 	@Autowired
@@ -47,9 +46,6 @@ public class ReportController {
 	
 	@Autowired
 	private ThanhphoRepo thanhphoRepo;
-	
-	@Autowired
-	private PaymentRepo paymentRepo;
 	
 	@GetMapping("/new_join/TP={id}/filter={index}")
 	public List<User> newJoin(@PathVariable int id, @PathVariable int index){
@@ -64,7 +60,7 @@ public class ReportController {
 		if(index == 1){
 			fromDate = Date.valueOf(yearMonth.atDay(1));
 			toDate = Date.valueOf(yearMonth.atEndOfMonth());
-		}else {
+		}else{
 			fromDate = Date.valueOf(year1.atDay(1));
 			toDate = Date.valueOf(year1.atMonth(12).atEndOfMonth());
 		}
@@ -151,20 +147,30 @@ public class ReportController {
 			list.add(revenue);
 		}
 		if(value == 1) {
-			  Collections.sort(list, new Comparator<Revenue>() {
-			      @Override
-			      public int compare(final Revenue r1, final Revenue r2) {
-			          return r2.getThanhpho().getName().compareTo(r1.getThanhpho().getName());
-			      }
-			  });
-		}else if(value == 2) {
+			List<String> x = new ArrayList<>();
+			for(Revenue item : list) {
+				x.add(item.getThanhpho().getName());
+			}
+			Collator collate = Collator.getInstance(new Locale("vi"));
+			Collections.sort(x, collate);
+			List<Revenue> y = new ArrayList<>();
+			for(String item : x) {
+				for(Revenue item1 : list) {
+					if(item.equalsIgnoreCase(item1.getThanhpho().getName())){
+						y.add(item1);
+						break;
+					}
+				}
+			}
+			return y;
+		}else{
 			  Collections.sort(list, new Comparator<Revenue>() {
 			      @Override
 			      public int compare(final Revenue r1, final Revenue r2) {
 			          return (int)(r2.getRevanue() - r1.getRevanue());
 			      }
 			  });
+			  return list;
 		}	  
-		return list;
 	}
 }

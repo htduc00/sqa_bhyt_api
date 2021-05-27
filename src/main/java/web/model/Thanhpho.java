@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="thanhpho")
 public class Thanhpho implements Serializable {
-
-    /** Primary key. */
     protected static final String PK = "id";
 
     @Id
@@ -48,8 +46,18 @@ public class Thanhpho implements Serializable {
     public Thanhpho() {
         super();
     }
+    
+    
+    
+    public Thanhpho(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
-    /**
+
+
+	/**
      * Access method for id.
      *
      * @return the current value of id

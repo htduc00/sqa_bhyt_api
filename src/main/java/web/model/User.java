@@ -88,7 +88,13 @@ public class User implements Serializable {
     }
     
     
-    public Set<Bill> getBill() {
+    public User(String cccd, String name) {
+		super();
+		this.cccd = cccd;
+		this.name = name;
+	}
+
+	public Set<Bill> getBill() {
 		return bill;
 	}
 

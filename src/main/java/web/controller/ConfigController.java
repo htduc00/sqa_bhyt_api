@@ -50,13 +50,13 @@ public class ConfigController {
 		return groupDetailRepo.findById(id).get();
 	}
 	@GetMapping("/salary/{id}")
-	public Salary  getListConfig(@PathVariable int id) {
+	public Salary  getSalary(@PathVariable int id) {
 		return salaryRepo.findById(id).get();
 	}
 	
 	
 	@PutMapping("/payment/{id}")
-	public Payment update(@RequestBody Payment newPayment, @PathVariable int id) {
+	public Payment updatePayment(@RequestBody Payment newPayment, @PathVariable int id) {
 		Payment payment = paymentRepo.findByGroupDetail(groupDetailRepo.findById(id).get());
 		payment.setCost(newPayment.getCost());
 		payment.setFamilyCost(newPayment.getFamilyCost());
@@ -65,7 +65,7 @@ public class ConfigController {
 	}
 	
 	@PutMapping("/salary/{id}")
-	public Salary update(@RequestBody Salary newSalary, @PathVariable int id) {
+	public Salary updateSalary(@RequestBody Salary newSalary, @PathVariable int id) {
 		Salary salary = salaryRepo.findById(id).get();
 		salary.setValue(newSalary.getValue());
 		return salaryRepo.save(salary);

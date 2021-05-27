@@ -51,8 +51,16 @@ public class Phuong implements Serializable {
     public Phuong() {
         super();
     }
+    
+    
+    public Phuong(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
-    /**
+
+	/**
      * Access method for id.
      *
      * @return the current value of id

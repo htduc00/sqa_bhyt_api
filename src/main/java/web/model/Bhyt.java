@@ -48,7 +48,14 @@ public class Bhyt implements Serializable {
         super();
     }
 
-    public Family getFamily() {
+    
+    public Bhyt(String code) {
+		super();
+		this.code = code;
+	}
+
+
+	public Family getFamily() {
 		return family;
 	}
 

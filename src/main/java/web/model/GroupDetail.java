@@ -45,6 +45,17 @@ public class GroupDetail implements Serializable{
     @OneToOne(mappedBy="groupDetail")
     private Payment payment;
 
+    
+    
+	public GroupDetail() {
+		super();
+	}
+
+	public GroupDetail(int id) {
+		super();
+		this.id = id;
+	}
+
 	public Payment getPayment() {
 		return payment;
 	}

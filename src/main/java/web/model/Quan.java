@@ -56,8 +56,14 @@ public class Quan implements Serializable {
     public Quan() {
         super();
     }
+    
+    public Quan(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
-    /**
+	/**
      * Access method for id.
      *
      * @return the current value of id

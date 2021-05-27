@@ -42,7 +42,7 @@ public class ListController {
 		return list;
 	}
 	@GetMapping("/Quan/Thanhpho={id}")
-	public List<Quan> getAllByTP(@PathVariable int id){
+	public List<Quan> getByTP(@PathVariable int id){
 		if(id==0)
 			return null;
 		Thanhpho tp = thanhphoRepo.findById(id).get();
@@ -59,7 +59,7 @@ public class ListController {
 	}
 	
 	@GetMapping("/join/Thanhpho={id}/Quan={id1}/Phuong={id2}")
-	public List<User> getByTP(@PathVariable int id ,@PathVariable int id1,@PathVariable int id2){
+	public List<User> getAll(@PathVariable int id ,@PathVariable int id1,@PathVariable int id2){
 		List<User> list = new ArrayList<User>();
 		if(id == 0 && id1 == 0 && id2 == 0 )
 			list= userRepo.findAll();
@@ -77,21 +77,4 @@ public class ListController {
 		}
 		return list;
 	}
-//	@GetMapping("/join/Phuong/{id}")
-//	public List<User> getByP(@PathVariable int id){
-//		Phuong p = phuongRepo.findById(id).get();
-//		List<User> list= userRepo.findAllByP(p);
-//		return list;
-//	}
-//	@GetMapping("/join/Quan/{id}")
-//	public List<User> getByQ(@PathVariable int id){
-//		Quan q = quanRepo.findById(id).get();
-//		List<User> list= userRepo.findAllByQ(q);
-//		
-//		return list;
-//	}
-//	@GetMapping("/join/hospital={id}/")
-//	public List<User> getByTPQP(@PathVariable int id ){
-//		return null;
-//	}
 }
