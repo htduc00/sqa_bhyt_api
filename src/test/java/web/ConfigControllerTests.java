@@ -96,7 +96,7 @@ public class ConfigControllerTests {
 	            .andExpect(status().isOk())
 	            .andExpect(jsonPath("$", notNullValue()))
 	            .andExpect(jsonPath("$.des", is("Tiền lương cơ sở")))
-				.andExpect(jsonPath("$.value", is(2590000)));
+				.andExpect(jsonPath("$.value", is(1490000)));
 	}
 	@Test 
 	public void test_update_salary_success() throws Exception{
@@ -124,7 +124,7 @@ public class ConfigControllerTests {
 	            .accept(MediaType.APPLICATION_JSON))
 	            .andExpect(status().isOk());
 		
-		Optional<Payment> payment = paymentRepo.findById(1);
+		Optional<Payment> payment = paymentRepo.findById(3);
 		assertNotNull(payment);
 		assertEquals(new Float(payment.get().getCost()), new Float(4.6));
 	}
